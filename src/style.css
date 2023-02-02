@@ -1,0 +1,20 @@
+/* Boton formulario */
+
+.formulario__grupo-btn-enviar{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
+.boton, button{
+    margin: 1rem;
+    background-color: rgb(215, 73, 73);
+    color: white;
+    border: 1px solid black;
+}
