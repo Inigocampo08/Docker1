@@ -1,0 +1,47 @@
+version: "3.1"
+services:
+#Base de Datos
+    db:
+        image: mysql
+        container_name: database
+        ports: 
+            - 3306:3306
+        command: --default-authentication-plugin=mysql_native_password
+        environment:
+            MYSQL_DATABASE: erronka
+            MYSQL_PASSWORD: Inf041
+            MYSQL_ROOT_PASSWORD: Inf041 
+        volumes:
+            - ./dump:/docker-entrypoint-initdb.d
+            - persistent:/var/lib/mysql
+        networks:
+            - network_test
+# Apache
+    www:
+        # image: jsalcedo90/ejemplodockerlaravel:2.1
+        build: .
+        container_name: apachelaravel
+        ports: 
+            - 80:80
+        links:
+            - db
+        networks:
+            - network_test
+# Phpmyadmin
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: phpmyadmin
+        links: 
+            - db:db
+        ports:
+            - 8000:80
+        environment:
+            MYSQL_USER: root
+            MYSQL_PASSWORD: Inf041
+            MYSQL_ROOT_PASSWORD: Inf041
+        networks:
+            - network_test
+volumes:
+    persistent:
+networks: 
+    network_test:
